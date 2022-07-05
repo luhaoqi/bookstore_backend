@@ -8,6 +8,8 @@ public interface BookDao {
 
     void save(Book b);
 
+    void delete(Book b);
+
     Iterable<Book> getAllBooks();
 
     Book getBookById(int id);

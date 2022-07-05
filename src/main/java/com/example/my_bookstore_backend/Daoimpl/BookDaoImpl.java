@@ -19,6 +19,10 @@ public class BookDaoImpl implements BookDao {
         bookRepository.save(b);
     }
 
+    public void delete(Book b) {
+        bookRepository.delete(b);
+    }
+
     @Override
     public Iterable<Book> getAllBooks() {
         return bookRepository.findAll();

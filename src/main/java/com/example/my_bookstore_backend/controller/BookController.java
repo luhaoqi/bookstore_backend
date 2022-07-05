@@ -15,13 +15,6 @@ import java.util.Optional;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- * @ClassName BookController
- * @Description Book Controller
- * @Author HaoqiLu
- * @Date 2022/5/13
- */
-
 @RestController
 @RequestMapping(path = "/book")
 public class BookController {
@@ -29,12 +22,14 @@ public class BookController {
     @Autowired
 //    private BookRepository bookRepository;
     private BookService bookService;
+    @Autowired
+    private BookRepository bookRepository;
 
     @PostMapping(path = "/add")
-    public Integer addNewUser(@RequestParam String name, @RequestParam String author,
-                              @RequestParam int price, @RequestParam String image,
-                              @RequestParam String description, @RequestParam String isbn,
-                              @RequestParam Integer sales) {
+    public int addNewBook(@RequestParam String name, @RequestParam String author,
+                          @RequestParam int price, @RequestParam String image,
+                          @RequestParam String description, @RequestParam String isbn,
+                          @RequestParam int sales, @RequestParam int stock) {
         Book book = new Book();
         book.setAuthor(author);
         book.setName(name);
@@ -43,9 +38,35 @@ public class BookController {
         book.setSales(sales);
         book.setDescription(description);
         book.setIsbn(isbn);
+        book.setStock(stock);
 //        bookRepository.save(book);
         bookService.save(book);
         return book.getBid();
+    }
+
+    @PostMapping(path = "/edit")
+    public int editBook(@RequestParam int bid,
+                        @RequestParam String name, @RequestParam String author,
+                        @RequestParam String isbn, @RequestParam int stock) {
+        Book book = bookService.getBookById(bid);
+        book.setAuthor(author);
+        book.setName(name);
+        book.setIsbn(isbn);
+        book.setStock(stock);
+//        bookRepository.save(book);
+        bookService.save(book);
+        return book.getBid();
+    }
+
+    @PostMapping(path = "/delete")
+    public int editBook(@RequestParam int bid) {
+        Book book = bookService.getBookById(bid);
+        if (book != null)
+        {
+            bookRepository.REMOVE(book.getBid());
+            return 1;
+        }
+        return 0;
     }
 
     @GetMapping("/all")

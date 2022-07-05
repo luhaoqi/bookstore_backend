@@ -8,12 +8,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-/**
- * @ClassName User
- * @Description Entity of User
- * @Author HaoqiLu
- * @Date 2022/5/13 16:50
- */
 @Data
 @Entity
 @Table(name = "Users")
@@ -30,6 +24,7 @@ public class User {
     private String email;
     private String tel;
     private String address;
+    private int state; //0:封禁 1:普通用户 2:admin
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)

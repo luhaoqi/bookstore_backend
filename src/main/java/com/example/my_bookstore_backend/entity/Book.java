@@ -7,12 +7,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
 
 import lombok.Data;
-/**
- * @ClassName Book
- * @Description Book Entity
- * @Author HaoqiLu
- * @Date 2022/5/13 16:50
- */
 
 @Data
 @Entity
@@ -32,6 +26,7 @@ public class Book {
     private int price;
     private String image;
     private int sales;
+    private int stock;
 
     private String description;
 //    private Integer inventory;

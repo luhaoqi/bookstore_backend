@@ -37,4 +37,16 @@ public class UserDaoImpl implements UserDao {
         u.setUid(0);
         return u;
     }
+
+    @Override
+    public int setstate(int uid, int s) {
+        Optional<User> x = userRepository.findById(uid);
+        if (x.isPresent()) {
+            User u=x.get();
+            u.setState(s);
+            userRepository.save(u);
+            return 1;
+        }
+        return 0;
+    }
 }

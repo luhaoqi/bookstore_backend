@@ -1,5 +1,7 @@
 package com.example.my_bookstore_backend.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.my_bookstore_backend.entity.*;
 import com.example.my_bookstore_backend.repository.*;
 import com.example.my_bookstore_backend.service.UserService;
@@ -36,7 +38,7 @@ public class UserController {
     @PostMapping(path = "/add")
     public Integer addNewUser(@RequestParam String name, @RequestParam String password,
                               @RequestParam String email, @RequestParam String tel,
-                              @RequestParam String address) {
+                              @RequestParam(defaultValue = "") String address) {
 
 
         User user = new User();
@@ -45,6 +47,7 @@ public class UserController {
         user.setEmail(email);
         user.setTel(tel);
         user.setAddress(address);
+        user.setState(1);
 
         Cart cart = new Cart();
         cart.setPrice(0);
@@ -58,23 +61,33 @@ public class UserController {
     }
 
     @PostMapping(path = "/auth")
-    public int checkUser(@RequestParam String name, @RequestParam String password) {
-//        return userRepository.auth(name, password).getUid();
-        return userService.auth(name, password).getUid();
+    public JSONObject checkUser(@RequestParam String name,
+                                @RequestParam String password) {
+        User u=userService.auth(name, password);
+        JSONObject data = new JSONObject();
+        if (u==null) {
+            data.put("uid",0);
+            data.put("state",0);
+            return data;
+        }
+        data.put("uid",u.getUid());
+        data.put("state",u.getState());
+        return data;
     }
 
     @GetMapping(path = "/all")
     public Iterable<User> getAllUsers() {
-//        return userRepository.findAll();
         return userService.getAllUsers();
     }
 
     @PostMapping(path = "/search")
     public User getByUid(@RequestParam Integer uid) {
-//        Optional<User> x = userRepository.findById(uid);
-//        if (x.isPresent()) return x.get();
-//        return null;
         return userService.getUserById(uid);
+    }
+
+    @PostMapping(path = "/setstate")
+    public int getByUid(@RequestParam int uid,@RequestParam int s) {
+        return userService.setstate(uid,s);
     }
 
 }

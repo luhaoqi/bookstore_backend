@@ -1,7 +1,9 @@
 package com.example.my_bookstore_backend.service;
 
 import com.example.my_bookstore_backend.entity.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface UserService {
     void save(User u);
 
@@ -10,4 +12,6 @@ public interface UserService {
     Iterable<User> getAllUsers();
 
     User getUserById(int uid);
+
+    int setstate(int uid, int s);
 }

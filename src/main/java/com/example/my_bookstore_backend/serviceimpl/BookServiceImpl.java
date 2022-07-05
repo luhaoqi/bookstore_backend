@@ -20,6 +20,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public void delete(Book b) {
+        bookDao.delete(b);
+    }
+
+    @Override
     public Iterable<Book> getAllBooks(){
         return bookDao.getAllBooks();
     }

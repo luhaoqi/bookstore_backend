@@ -10,4 +10,6 @@ public interface UserDao {
     Iterable<User> getAllUsers();
 
     User getUserById(int uid);
+
+    int setstate(int uid, int s);
 }
