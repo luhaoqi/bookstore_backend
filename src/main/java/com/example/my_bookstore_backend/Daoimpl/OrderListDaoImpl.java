@@ -1,14 +1,8 @@
 package com.example.my_bookstore_backend.Daoimpl;
 
 import com.example.my_bookstore_backend.Dao.OrderListDao;
-import com.example.my_bookstore_backend.entity.CartItem;
-import com.example.my_bookstore_backend.entity.OrderItem;
-import com.example.my_bookstore_backend.entity.OrderList;
-import com.example.my_bookstore_backend.entity.User;
-import com.example.my_bookstore_backend.repository.CartItemRepository;
-import com.example.my_bookstore_backend.repository.OrderItemRepository;
-import com.example.my_bookstore_backend.repository.OrderListRepository;
-import com.example.my_bookstore_backend.repository.UserRepository;
+import com.example.my_bookstore_backend.entity.*;
+import com.example.my_bookstore_backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -29,6 +23,9 @@ public class OrderListDaoImpl implements OrderListDao {
 
     @Autowired
     OrderItemRepository orderItemRepository;
+
+    @Autowired
+    BookRepository bookRepository;
 
 
     @Override
@@ -87,6 +84,11 @@ public class OrderListDaoImpl implements OrderListDao {
         int totPrice = 0;
         for (CartItem x : cartItemList) {
             totPrice += x.getNum() * x.getBook().getPrice();
+            if (x.getBook().getStock()<x.getNum())
+            {
+                //库存不够
+                return null;
+            }
         }
         orderList.setPrice(totPrice);
         orderListRepository.save(orderList);
@@ -99,6 +101,12 @@ public class OrderListDaoImpl implements OrderListDao {
             o.setBook(x.getBook());
             o.setOrderList(orderList);
             orderItemRepository.save(o);
+
+            //修改书籍对应的库存与销量
+            Book book = x.getBook();
+            book.setSales(book.getSales() + x.getNum());
+            book.setStock(book.getStock() - x.getNum());
+            bookRepository.save(book);
         }
 
 
