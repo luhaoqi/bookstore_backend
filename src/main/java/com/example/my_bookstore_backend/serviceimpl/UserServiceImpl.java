@@ -33,6 +33,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Integer checkUser(String username) {
+        return userDao.getUserByName(username);
+    }
+
+    @Override
     public int setstate(int uid, int s) {
         return userDao.setstate(uid, s);
     }

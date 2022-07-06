@@ -13,5 +13,7 @@ public interface UserService {
 
     User getUserById(int uid);
 
+    Integer checkUser(String username);
+
     int setstate(int uid, int s);
 }
