@@ -4,7 +4,6 @@ import com.example.my_bookstore_backend.Dao.OrderItemDao;
 import com.example.my_bookstore_backend.entity.OrderItem;
 import com.example.my_bookstore_backend.service.OrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

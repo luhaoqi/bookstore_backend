@@ -1,7 +1,10 @@
 package com.example.my_bookstore_backend.Daoimpl;
 
 import com.example.my_bookstore_backend.Dao.OrderListDao;
-import com.example.my_bookstore_backend.entity.*;
+import com.example.my_bookstore_backend.entity.CartItem;
+import com.example.my_bookstore_backend.entity.OrderItem;
+import com.example.my_bookstore_backend.entity.OrderList;
+import com.example.my_bookstore_backend.entity.User;
 import com.example.my_bookstore_backend.repository.CartItemRepository;
 import com.example.my_bookstore_backend.repository.OrderItemRepository;
 import com.example.my_bookstore_backend.repository.OrderListRepository;
@@ -64,11 +67,11 @@ public class OrderListDaoImpl implements OrderListDao {
     }
 
     @Override
-    public String purchase(int uid) {
+    public OrderList purchase(int uid, String tel, String address, String name) {
         Optional<User> user = userRepository.findById(uid);
-        if (user.isEmpty()) return "{s:false}";
+        if (user.isEmpty()) return null;
 
-        List<CartItem> cartItemList=user.get().getCartItemList();
+        List<CartItem> cartItemList = user.get().getCartItemList();
 
         OrderList orderList = new OrderList();
         orderList.setUser(user.get());
@@ -77,10 +80,18 @@ public class OrderListDaoImpl implements OrderListDao {
         String dateString = formatter.format(currentTime);
         orderList.setTime(dateString);
 
+        orderList.setTel(tel);
+        orderList.setAddress(address);
+        orderList.setName(name);
+
         int totPrice = 0;
-        for (CartItem x : cartItemList)
-        {
+        for (CartItem x : cartItemList) {
             totPrice += x.getNum() * x.getBook().getPrice();
+        }
+        orderList.setPrice(totPrice);
+        orderListRepository.save(orderList);
+
+        for (CartItem x : cartItemList) {
             //存储物品到orderItem
             OrderItem o = new OrderItem();
             o.setNum(x.getNum());
@@ -89,10 +100,9 @@ public class OrderListDaoImpl implements OrderListDao {
             o.setOrderList(orderList);
             orderItemRepository.save(o);
         }
-        orderList.setPrice(totPrice);
-        orderListRepository.save(orderList);
+
 
         cartItemRepository.clear(user.get());
-        return "{s:true}";
+        return orderList;
     }
 }

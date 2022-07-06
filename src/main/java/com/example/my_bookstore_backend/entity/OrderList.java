@@ -12,20 +12,23 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "OrderLists")
+@Table(name = "order_lists")
 @JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "orderListId")
 public class OrderList {
 
     @Id
-    @Column(name = "orderListId")
+    @Column(name = "order_list_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderListId;
     private int price;
     private String time;
+    private String tel;
+    private String address;
+    private String name;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(targetEntity = OrderItem.class, mappedBy = "orderList",

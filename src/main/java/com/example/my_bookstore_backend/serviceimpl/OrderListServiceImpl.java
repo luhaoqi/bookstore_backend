@@ -34,7 +34,7 @@ public class OrderListServiceImpl implements OrderListService {
     }
 
     @Override
-    public String purchase(int uid) {
-        return orderListDao.purchase(uid);
+    public OrderList purchase(int uid, String tel, String address, String name) {
+        return orderListDao.purchase(uid, tel, address, name);
     }
 }

@@ -1,19 +1,18 @@
 package com.example.my_bookstore_backend.Dao;
 
 import com.example.my_bookstore_backend.entity.OrderList;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 public interface OrderListDao {
 
-    public int addNewOrderList(int uid, int price, String time);
+    int addNewOrderList(int uid, int price, String time);
 
-    public Iterable<OrderList> getAllOrderLists();
+    Iterable<OrderList> getAllOrderLists();
 
-    public OrderList getByOid(int oid);
+    OrderList getByOid(int oid);
 
-    public List<OrderList> getByUid(int uid);
+    List<OrderList> getByUid(int uid);
 
-    public String purchase(int uid);
+    OrderList purchase(int uid, String tel, String address, String name);
 }

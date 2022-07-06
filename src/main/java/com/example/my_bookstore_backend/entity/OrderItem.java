@@ -10,13 +10,13 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "OrderItems")
+@Table(name = "order_items")
 @JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "orderItemId")
 public class OrderItem {
 
     @Id
-    @Column(name = "orderItemId")
+    @Column(name = "order_item_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderItemId;
 
@@ -25,7 +25,7 @@ public class OrderItem {
     private Book book;
 
     @ManyToOne
-    @JoinColumn(name = "orderListId")
+    @JoinColumn(name = "order_list_id")
     @JsonIgnore
     private OrderList orderList;
 

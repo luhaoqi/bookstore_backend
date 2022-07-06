@@ -1,18 +1,11 @@
 package com.example.my_bookstore_backend.controller;
 
 import com.example.my_bookstore_backend.entity.OrderList;
-import com.example.my_bookstore_backend.entity.User;
-import com.example.my_bookstore_backend.repository.CartItemRepository;
-import com.example.my_bookstore_backend.repository.OrderListRepository;
-import com.example.my_bookstore_backend.repository.UserRepository;
 import com.example.my_bookstore_backend.service.OrderListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/order")
@@ -21,6 +14,7 @@ public class OrderListController {
     @Autowired
     private OrderListService orderListService;
 
+    //基本不用 购物车购买直接调用purchase
     @PostMapping(path = "/add")
     public int addNewOrderList(@RequestParam int uid, @RequestParam int price, @RequestParam String time) {
         return orderListService.addNewOrderList(uid, price, time);
@@ -42,8 +36,13 @@ public class OrderListController {
     }
 
     @PostMapping(path = "/purchase")
-    public String purchase(@RequestParam int uid) {
-        return orderListService.purchase(uid);
+    public OrderList purchase(@RequestParam int uid, @RequestParam String tel,
+                              @RequestParam String address, @RequestParam String name) {
+        OrderList o = orderListService.purchase(uid, tel, address, name);
+        if (o != null) return o;
+        o = new OrderList();
+        o.setOrderListId(0);
+        return o;
     }
 
 

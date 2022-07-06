@@ -2,12 +2,10 @@ package com.example.my_bookstore_backend.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.my_bookstore_backend.entity.*;
-import com.example.my_bookstore_backend.repository.*;
 import com.example.my_bookstore_backend.service.CartItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 import java.util.List;
 
 @RestController
@@ -35,7 +33,14 @@ public class CartItemController {
 
     @PostMapping(path = "/search")
     public CartItem getByOIid(@RequestParam int ciid) {
-        return cartItemService.getByOIid(ciid);
+        CartItem c = cartItemService.getByOIid(ciid);
+        if (c == null)
+        {
+            c = new CartItem();
+            c.setCartItemId(0);
+            return c;
+        }
+        return c;
     }
 
     @GetMapping(path = "/getAllCartItems")
