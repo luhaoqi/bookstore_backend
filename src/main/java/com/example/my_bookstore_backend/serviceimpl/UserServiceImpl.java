@@ -34,7 +34,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer checkUser(String username) {
-        return userDao.getUserByName(username);
+        User user = userDao.getUserByName(username);
+        return user == null ? 0 : user.getUid();
     }
 
     @Override

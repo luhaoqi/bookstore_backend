@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Data
@@ -27,5 +28,8 @@ public class OrderList {
     @JoinColumn(name = "userId")
     private User user;
 
+    @OneToMany(targetEntity = OrderItem.class, mappedBy = "orderList",
+            cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderItem> orderItemList;
 
 }

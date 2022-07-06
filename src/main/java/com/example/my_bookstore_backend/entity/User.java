@@ -7,12 +7,13 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Users")
-@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "uid")
+@Table(name = "users")
+@JsonIgnoreProperties(value = {"handler", "hibernateLazyInitializer", "fieldHandler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "uid")
 public class User {
 
     @Id
@@ -26,8 +27,14 @@ public class User {
     private String address;
     private int state; //0:封禁 1:普通用户 2:admin
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private Cart cart;
+    @JsonIgnore
+    @OneToMany(targetEntity = CartItem.class, mappedBy = "user",
+            cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CartItem> cartItemList;
+
+    @JsonIgnore
+    @OneToMany(targetEntity = OrderList.class, mappedBy = "user",
+            cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderList> orderLists;
 
 }

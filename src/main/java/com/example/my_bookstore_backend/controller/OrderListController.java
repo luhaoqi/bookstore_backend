@@ -1,6 +1,5 @@
 package com.example.my_bookstore_backend.controller;
 
-import com.example.my_bookstore_backend.entity.Cart;
 import com.example.my_bookstore_backend.entity.OrderList;
 import com.example.my_bookstore_backend.entity.User;
 import com.example.my_bookstore_backend.repository.CartItemRepository;

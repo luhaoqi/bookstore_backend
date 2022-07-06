@@ -43,8 +43,4 @@ public class CartItemController {
         return cartItemService.getAllCartItemsByUid(uid);
     }
 
-    @GetMapping(path = "/getByCid")
-    public List<CartItem> getByCid(@RequestParam Integer cid) {
-        return cartItemService.getByCid(cid);
-    }
 }

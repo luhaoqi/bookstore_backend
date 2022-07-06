@@ -1,10 +1,9 @@
 package com.example.my_bookstore_backend.Daoimpl;
 
 import com.example.my_bookstore_backend.Dao.OrderListDao;
-import com.example.my_bookstore_backend.entity.Cart;
-import com.example.my_bookstore_backend.entity.OrderList;
-import com.example.my_bookstore_backend.entity.User;
+import com.example.my_bookstore_backend.entity.*;
 import com.example.my_bookstore_backend.repository.CartItemRepository;
+import com.example.my_bookstore_backend.repository.OrderItemRepository;
 import com.example.my_bookstore_backend.repository.OrderListRepository;
 import com.example.my_bookstore_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,9 @@ public class OrderListDaoImpl implements OrderListDao {
 
     @Autowired
     CartItemRepository cartItemRepository;
+
+    @Autowired
+    OrderItemRepository orderItemRepository;
 
 
     @Override
@@ -65,7 +67,8 @@ public class OrderListDaoImpl implements OrderListDao {
     public String purchase(int uid) {
         Optional<User> user = userRepository.findById(uid);
         if (user.isEmpty()) return "{s:false}";
-        Cart cart = user.get().getCart();
+
+        List<CartItem> cartItemList=user.get().getCartItemList();
 
         OrderList orderList = new OrderList();
         orderList.setUser(user.get());
@@ -73,13 +76,23 @@ public class OrderListDaoImpl implements OrderListDao {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//定义新的日期格式
         String dateString = formatter.format(currentTime);
         orderList.setTime(dateString);
-        orderList.setPrice(cart.getPrice());
+
+        int totPrice = 0;
+        for (CartItem x : cartItemList)
+        {
+            totPrice += x.getNum() * x.getBook().getPrice();
+            //存储物品到orderItem
+            OrderItem o = new OrderItem();
+            o.setNum(x.getNum());
+            o.setPrice(x.getBook().getPrice());
+            o.setBook(x.getBook());
+            o.setOrderList(orderList);
+            orderItemRepository.save(o);
+        }
+        orderList.setPrice(totPrice);
         orderListRepository.save(orderList);
 
-        //TODO:存储物品
-
-        cart.setPrice(0);
-        cartItemRepository.clear(cart);
+        cartItemRepository.clear(user.get());
         return "{s:true}";
     }
 }

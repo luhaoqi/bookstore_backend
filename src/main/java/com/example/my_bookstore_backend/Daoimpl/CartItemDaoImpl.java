@@ -1,10 +1,11 @@
 package com.example.my_bookstore_backend.Daoimpl;
 
 import com.example.my_bookstore_backend.Dao.CartItemDao;
-import com.example.my_bookstore_backend.entity.*;
+import com.example.my_bookstore_backend.entity.Book;
+import com.example.my_bookstore_backend.entity.CartItem;
+import com.example.my_bookstore_backend.entity.User;
 import com.example.my_bookstore_backend.repository.BookRepository;
 import com.example.my_bookstore_backend.repository.CartItemRepository;
-import com.example.my_bookstore_backend.repository.CartRepository;
 import com.example.my_bookstore_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,8 +22,6 @@ public class CartItemDaoImpl implements CartItemDao {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private CartRepository cartRepository;
-    @Autowired
     private CartItemRepository cartItemRepository;
 
 
@@ -32,28 +31,20 @@ public class CartItemDaoImpl implements CartItemDao {
         if (book.isEmpty()) return null;
         Optional<User> user = userRepository.findById(uid);
         if (user.isEmpty()) return null;
-        Cart cart = user.get().getCart();
 
-        int newPrice = cart.getPrice() + book.get().getPrice();
         //如果有 +1
-        List<CartItem> t = cartItemRepository.findByCartAndBook(cart, book.get());
-        if (t.size() > 0) {
-            assert (t.size() == 1);
-            CartItem c = t.get(0);
-            c.setNum(c.getNum() + 1);
-            cartItemRepository.save(c);
-            cart.setPrice(newPrice);
-            cartRepository.save(cart);
-            return c;
+        CartItem t = cartItemRepository.findByUserAndBook(user.get(), book.get());
+        if (t != null) {
+            t.setNum(t.getNum() + 1);
+            cartItemRepository.save(t);
+            return t;
         }
         //如果没有 新建 num=1
         CartItem cartItem = new CartItem();
         cartItem.setBook(book.get());
-        cartItem.setCart(cart);
         cartItem.setNum(1);
+        cartItem.setUser(user.get());
         cartItemRepository.save(cartItem);
-        cart.setPrice(newPrice);
-        cartRepository.save(cart);
         return cartItem;
     }
 
@@ -67,24 +58,17 @@ public class CartItemDaoImpl implements CartItemDao {
         if (book.isEmpty()) return nullc;
         Optional<User> user = userRepository.findById(uid);
         if (user.isEmpty()) return nullc;
-        Cart cart = user.get().getCart();
-        int newPrice = cart.getPrice() + book.get().getPrice();
         //如果有 -1
-        List<CartItem> t = cartItemRepository.findByCartAndBook(cart, book.get());
-        if (t.size() > 0) {
-            assert (t.size() == 1);
-            CartItem c = t.get(0);
+        CartItem t = cartItemRepository.findByUserAndBook(user.get(), book.get());
+        if (t != null) {
             //如果多于一个;
-            if (c.getNum() > 1) {
-                c.setNum(c.getNum() - 1);
-                cartItemRepository.save(c);
-                cart.setPrice(newPrice);
-                cartRepository.save(cart);
-//                return JSON.toJSONString(c);
-                return c;
+            if (t.getNum() > 1) {
+                t.setNum(t.getNum() - 1);
+                cartItemRepository.save(t);
+                return t;
             }
             //只剩一个就直接删掉;
-            cartItemRepository.delete(c);
+            cartItemRepository.delete(t);
             return nullc;
         }
         //如果没有 返回null;
@@ -117,22 +101,7 @@ public class CartItemDaoImpl implements CartItemDao {
 
         Optional<User> user = userRepository.findById(uid);
         if (user.isEmpty()) return l;
-        List<Cart> carts = cartRepository.getByUid(user.get());
-        assert (carts.size() == 1);
-        Cart cart = carts.get(0);
-        return cartItemRepository.findBycart(cart);
+        return cartItemRepository.findByUser(user.get());
     }
 
-    @Override
-    public List<CartItem> getByCid(int cid) {
-        //use l as null
-        CartItem o = new CartItem();
-        o.setCartItemId(0);
-        List<CartItem> l = new ArrayList<>();
-        l.add(o);
-
-        Optional<Cart> cart = cartRepository.findById(cid);
-        if (cart.isEmpty()) return l;
-        return cartItemRepository.findBycart(cart.get());
-    }
 }

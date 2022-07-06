@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Books")
+@Table(name = "books")
 @JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "bid")
 public class Book {
@@ -29,8 +29,7 @@ public class Book {
     private int stock;
 
     private String description;
-//    private Integer inventory;
+
     private String isbn;
-//    private String type;
 }
 

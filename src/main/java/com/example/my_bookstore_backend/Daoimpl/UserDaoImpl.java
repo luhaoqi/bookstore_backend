@@ -21,7 +21,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User auth(String name, String password) {
-        return userRepository.auth(name, password);
+        return userRepository.findByNameAndPassword(name, password);
     }
 
     @Override
@@ -39,9 +39,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Integer getUserByName(String username) {
+    public User getUserByName(String username) {
         User x = userRepository.findByName(username);
-        return x != null ? x.getUid() : 0;
+        return x;
     }
 
     @Override

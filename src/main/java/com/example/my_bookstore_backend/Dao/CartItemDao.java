@@ -18,6 +18,4 @@ public interface CartItemDao {
 
     public List<CartItem> getAllCartItemsByUid(int uid);
 
-    public List<CartItem> getByCid(int cid);
-
 }

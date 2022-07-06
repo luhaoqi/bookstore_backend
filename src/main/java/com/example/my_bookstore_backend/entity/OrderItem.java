@@ -30,4 +30,6 @@ public class OrderItem {
     private OrderList orderList;
 
     private int num;
+
+    private int price;
 }

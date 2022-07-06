@@ -10,8 +10,7 @@ import org.springframework.stereotype.Repository;
 // CRUD refers Create, Read, Update, Delete
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
-    @Query("from User u where u.name=:name and u.password=:password")
-    User auth(String name, String password);
+    User findByNameAndPassword(String name, String password);
 
     User findByName(String username);
 

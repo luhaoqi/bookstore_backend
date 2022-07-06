@@ -10,4 +10,5 @@ import java.util.List;
 public interface OrderItemRepository extends CrudRepository<OrderItem, Integer> {
     @Query("select oi from OrderItem oi where oi.orderList=:orderList")
     List<OrderItem> getAllByOrderList(OrderList orderList);
+
 }

@@ -38,8 +38,4 @@ public class CartItemServiceImpl implements CartItemService {
         return cartItemDao.getAllCartItemsByUid(uid);
     }
 
-    @Override
-    public List<CartItem> getByCid(int cid) {
-        return cartItemDao.getByCid(cid);
-    }
 }

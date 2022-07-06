@@ -1,34 +1,21 @@
 package com.example.my_bookstore_backend.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.my_bookstore_backend.entity.Cart;
 import com.example.my_bookstore_backend.entity.User;
 import com.example.my_bookstore_backend.repository.CartItemRepository;
-import com.example.my_bookstore_backend.repository.CartRepository;
 import com.example.my_bookstore_backend.repository.OrderItemRepository;
 import com.example.my_bookstore_backend.repository.OrderListRepository;
 import com.example.my_bookstore_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @RestController
 @RequestMapping(path = "/user")
 public class UserController {
     @Autowired
-//    private UserRepository userRepository;
     private UserService userService;
-
-    @Autowired
-    private OrderListRepository orderListRepository;
-
-    @Autowired
-    private OrderItemRepository orderItemRepository;
-
-    @Autowired
-    private CartRepository cartRepository;
-
-    @Autowired
-    private CartItemRepository cartItemRepository;
 
     @PostMapping(path = "/add")
     public Integer addNewUser(@RequestParam String name, @RequestParam String password,
@@ -44,14 +31,8 @@ public class UserController {
         user.setTel(tel);
         user.setAddress(address);
         user.setState(1);
+        user.setCartItemList(new ArrayList<>());
 
-        Cart cart = new Cart();
-        cart.setPrice(0);
-        cart.setUser(user);
-
-        user.setCart(cart);
-
-//        userRepository.save(user);
         userService.save(user);
         return user.getUid();
     }

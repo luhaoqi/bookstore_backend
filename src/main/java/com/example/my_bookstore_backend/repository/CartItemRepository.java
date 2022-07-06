@@ -9,13 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface CartItemRepository extends CrudRepository<CartItem, Integer> {
-    @Query("select ci from CartItem ci where ci.cart=:cart")
-    List<CartItem> findBycart(Cart cart);
-
-    @Query("select ci from CartItem ci where ci.cart=:cart and ci.book=:book")
-    List<CartItem> findByCartAndBook(Cart cart, Book book);
     @Modifying
     @Transactional
-    @Query("delete from CartItem ci where ci.cart = :cart")
-    void clear(Cart cart);
+    @Query("delete from CartItem ci where ci.user = :user")
+    void clear(User user);
+
+    List<CartItem> findByUser(User user);
+
+    CartItem findByUserAndBook(User user,Book book);
 }

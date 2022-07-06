@@ -6,9 +6,6 @@ import com.example.my_bookstore_backend.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
-
 @Repository
 public class BookDaoImpl implements BookDao {
 
@@ -30,10 +27,7 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public Book getBookById(int id) {
-        Optional<Book> book = bookRepository.findById(id);
-        if (book.isPresent()) return book.get();
-        Book b = new Book();
-        b.setBid(0);
+        Book b = bookRepository.findByBid(id);
         return b;
     }
 }
