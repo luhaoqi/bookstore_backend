@@ -1,10 +1,12 @@
 package com.example.my_bookstore_backend.controller;
 
+import com.example.my_bookstore_backend.DTO.OrderListDTO;
 import com.example.my_bookstore_backend.entity.OrderList;
 import com.example.my_bookstore_backend.service.OrderListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,8 +33,13 @@ public class OrderListController {
     }
 
     @GetMapping(path = "/getByUid")
-    public List<OrderList> getByUid(@RequestParam int uid) {
-        return orderListService.getByUid(uid);
+    public List<OrderListDTO> getByUid(@RequestParam int uid) {
+        List<OrderList> list = orderListService.getByUid(uid);
+        List<OrderListDTO> list2 = new ArrayList<>();
+        for (OrderList x : list) {
+            list2.add(x.ToOrderListDTO());
+        }
+        return list2;
     }
 
     @PostMapping(path = "/purchase")

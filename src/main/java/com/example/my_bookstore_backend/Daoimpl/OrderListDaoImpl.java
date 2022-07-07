@@ -1,5 +1,6 @@
 package com.example.my_bookstore_backend.Daoimpl;
 
+import com.example.my_bookstore_backend.DTO.OrderListDTO;
 import com.example.my_bookstore_backend.Dao.OrderListDao;
 import com.example.my_bookstore_backend.entity.*;
 import com.example.my_bookstore_backend.repository.*;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -84,8 +86,7 @@ public class OrderListDaoImpl implements OrderListDao {
         int totPrice = 0;
         for (CartItem x : cartItemList) {
             totPrice += x.getNum() * x.getBook().getPrice();
-            if (x.getBook().getStock()<x.getNum())
-            {
+            if (x.getBook().getStock() < x.getNum()) {
                 //库存不够
                 return null;
             }
