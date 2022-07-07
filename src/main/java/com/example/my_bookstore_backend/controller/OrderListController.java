@@ -23,8 +23,13 @@ public class OrderListController {
     }
 
     @GetMapping(path = "/all")
-    public Iterable<OrderList> getAllOrderLists() {
-        return orderListService.getAllOrderLists();
+    public Iterable<OrderListDTO> getAllOrderLists() {
+        Iterable<OrderList> list = orderListService.getAllOrderLists();
+        List<OrderListDTO> list2 = new ArrayList<>();
+        for (OrderList x : list) {
+            list2.add(x.ToOrderListDTO());
+        }
+        return list2;
     }
 
     @PostMapping(path = "/search")

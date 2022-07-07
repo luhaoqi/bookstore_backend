@@ -10,4 +10,6 @@ import java.util.List;
 public class OrderListDTO {
     OrderList orderList;
     private List<String> bookName;
+    String username;
+    Integer uid;
 }

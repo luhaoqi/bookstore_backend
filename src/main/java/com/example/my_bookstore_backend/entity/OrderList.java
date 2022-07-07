@@ -45,6 +45,8 @@ public class OrderList {
             list.add(x.getBook().getName());
         }
         data.setBookName(list);
+        data.setUsername(user.getName());
+        data.setUid(user.getUid());
         return data;
     }
 }
