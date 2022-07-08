@@ -17,7 +17,9 @@ public class BookDaoImpl implements BookDao {
     }
 
     public void delete(Book b) {
-        bookRepository.delete(b);
+        b.setFlag(0);
+        bookRepository.save(b);
+//        bookRepository.delete(b);
     }
 
     @Override

@@ -31,5 +31,6 @@ public class Book {
     private String description;
 
     private String isbn;
+    private int flag;
 }
 

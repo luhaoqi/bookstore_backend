@@ -30,6 +30,7 @@ public class BookController {
         book.setDescription(description);
         book.setIsbn(isbn);
         book.setStock(stock);
+        book.setFlag(1);
         bookService.save(book);
         return book.getBid();
     }
