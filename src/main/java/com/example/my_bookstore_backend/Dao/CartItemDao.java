@@ -1,7 +1,7 @@
 package com.example.my_bookstore_backend.Dao;
 
 import com.example.my_bookstore_backend.entity.CartItem;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.example.my_bookstore_backend.entity.User;
 
 import java.util.List;
 
@@ -18,4 +18,5 @@ public interface CartItemDao {
 
     public List<CartItem> getAllCartItemsByUid(int uid);
 
+    void clear(User user);
 }

@@ -1,15 +1,14 @@
 package com.example.my_bookstore_backend.Daoimpl;
 
-import com.example.my_bookstore_backend.DTO.OrderListDTO;
 import com.example.my_bookstore_backend.Dao.OrderListDao;
-import com.example.my_bookstore_backend.entity.*;
+import com.example.my_bookstore_backend.entity.OrderList;
+import com.example.my_bookstore_backend.entity.User;
 import com.example.my_bookstore_backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +28,13 @@ public class OrderListDaoImpl implements OrderListDao {
     @Autowired
     BookRepository bookRepository;
 
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void save(OrderList o) {
+//        int a = 10 / 0;
+        orderListRepository.save(o);
+    }
 
     @Override
     public int addNewOrderList(int uid, int price, String time) {
@@ -65,53 +71,4 @@ public class OrderListDaoImpl implements OrderListDao {
         return orderListRepository.getAllByUid(user.get());
     }
 
-    @Override
-    public OrderList purchase(int uid, String tel, String address, String name) {
-        Optional<User> user = userRepository.findById(uid);
-        if (user.isEmpty()) return null;
-
-        List<CartItem> cartItemList = user.get().getCartItemList();
-
-        OrderList orderList = new OrderList();
-        orderList.setUser(user.get());
-        Date currentTime = new Date();//当前日期
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//定义新的日期格式
-        String dateString = formatter.format(currentTime);
-        orderList.setTime(dateString);
-
-        orderList.setTel(tel);
-        orderList.setAddress(address);
-        orderList.setName(name);
-
-        int totPrice = 0;
-        for (CartItem x : cartItemList) {
-            totPrice += x.getNum() * x.getBook().getPrice();
-            if (x.getBook().getStock() < x.getNum()) {
-                //库存不够
-                return null;
-            }
-        }
-        orderList.setPrice(totPrice);
-        orderListRepository.save(orderList);
-
-        for (CartItem x : cartItemList) {
-            //存储物品到orderItem
-            OrderItem o = new OrderItem();
-            o.setNum(x.getNum());
-            o.setPrice(x.getBook().getPrice());
-            o.setBook(x.getBook());
-            o.setOrderList(orderList);
-            orderItemRepository.save(o);
-
-            //修改书籍对应的库存与销量
-            Book book = x.getBook();
-            book.setSales(book.getSales() + x.getNum());
-            book.setStock(book.getStock() - x.getNum());
-            bookRepository.save(book);
-        }
-
-
-        cartItemRepository.clear(user.get());
-        return orderList;
-    }
 }

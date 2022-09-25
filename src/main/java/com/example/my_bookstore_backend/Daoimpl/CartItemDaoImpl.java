@@ -104,4 +104,8 @@ public class CartItemDaoImpl implements CartItemDao {
         return cartItemRepository.findByUser(user.get());
     }
 
+    @Override
+    public void clear(User user) {
+        cartItemRepository.clear(user);
+    }
 }

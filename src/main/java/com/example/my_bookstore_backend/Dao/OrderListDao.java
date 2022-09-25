@@ -1,11 +1,11 @@
 package com.example.my_bookstore_backend.Dao;
 
-import com.example.my_bookstore_backend.DTO.OrderListDTO;
 import com.example.my_bookstore_backend.entity.OrderList;
 
 import java.util.List;
 
 public interface OrderListDao {
+    void save(OrderList o);
 
     int addNewOrderList(int uid, int price, String time);
 
@@ -15,5 +15,4 @@ public interface OrderListDao {
 
     List<OrderList> getByUid(int uid);
 
-    OrderList purchase(int uid, String tel, String address, String name);
 }

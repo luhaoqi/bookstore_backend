@@ -9,6 +9,8 @@ import com.example.my_bookstore_backend.repository.OrderItemRepository;
 import com.example.my_bookstore_backend.repository.OrderListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,13 @@ public class OrderItemDaoImpl implements OrderItemDao {
     @Autowired
     private OrderListRepository orderListRepository;
 
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void save(OrderItem o) {
+//        int a = 10 / 0;
+        orderItemRepository.save(o);
+    }
 
     @Override
     public int addNewOrderItem(int bid, int oid, int num) {
