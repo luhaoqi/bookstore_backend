@@ -41,10 +41,16 @@ public class OrderList {
         OrderListDTO data = new OrderListDTO();
         data.setOrderList(this);
         List<String> list = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
+        List<Integer> list3 = new ArrayList<>();
         for (OrderItem x:orderItemList){
             list.add(x.getBook().getName());
+            list2.add(x.getNum());
+            list3.add(x.getPrice());
         }
         data.setBookName(list);
+        data.setBookSales(list2);
+        data.setBookPrice(list3);
         data.setUsername(user.getName());
         data.setUid(user.getUid());
         return data;
