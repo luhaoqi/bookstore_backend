@@ -4,6 +4,7 @@ import com.example.my_bookstore_backend.DTO.OrderListDTO;
 import com.example.my_bookstore_backend.entity.OrderList;
 import com.example.my_bookstore_backend.service.OrderListService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -15,6 +16,9 @@ public class OrderListController {
 
     @Autowired
     private OrderListService orderListService;
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     //基本不用 购物车购买直接调用purchase
     @PostMapping(path = "/add")
@@ -48,13 +52,12 @@ public class OrderListController {
     }
 
     @PostMapping(path = "/purchase")
-    public OrderList purchase(@RequestParam int uid, @RequestParam String tel,
+    public Integer purchase(@RequestParam int uid, @RequestParam String tel,
                               @RequestParam String address, @RequestParam String name) {
-        OrderList o = orderListService.purchase(uid, tel, address, name);
-        if (o != null) return o;
-        o = new OrderList();
-        o.setOrderListId(0);
-        return o;
+        String data = "purchase," + uid + "," + tel + "," + address + "," + name;
+        kafkaTemplate.send("bookstore_purchase", "purchase", data);
+        System.out.println(data);
+        return 200;
     }
 
 

@@ -48,6 +48,7 @@ public class OrderListServiceImpl implements OrderListService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public OrderList purchase(int uid, String tel, String address, String name) {
+        System.out.println("In Service: " + uid + "," + tel + "," + address + "," + name);
         User user = userDao.getUserById(uid);
         if (user.getUid() == 0) return null;
 
