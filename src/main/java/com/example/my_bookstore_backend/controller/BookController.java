@@ -40,7 +40,8 @@ public class BookController {
                          @RequestParam(required = false) String name, @RequestParam(required = false) String author,
                          @RequestParam(required = false) Integer price, @RequestParam(required = false) String image,
                          @RequestParam(required = false) String description, @RequestParam(required = false) String isbn,
-                         @RequestParam(required = false) Integer sales, @RequestParam(required = false) Integer stock) {
+                         @RequestParam(required = false) Integer sales, @RequestParam(required = false) Integer stock,
+                         @RequestParam(required = false) Integer flag) {
         Book book = bookService.getBookById(bid);
         if (book == null) {
             Book nullBook = new Book();
@@ -55,6 +56,7 @@ public class BookController {
         if (isbn != null) book.setIsbn(isbn);
         if (sales != null) book.setSales(sales);
         if (stock != null) book.setStock(stock);
+        if (flag != null) book.setFlag(flag);
         bookService.save(book);
         return book;
     }
