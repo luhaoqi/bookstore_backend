@@ -49,7 +49,7 @@ public class BookDaoImpl implements BookDao {
             redisUtil.set("book:all", JSONArray.toJSON(list));
             System.out.println("get books from DB");
         } else {
-            System.out.println(p);
+//            System.out.println(p);
 
             list = new ArrayList<>();
             if (p instanceof List<?>) {
