@@ -6,6 +6,8 @@ import com.example.my_bookstore_backend.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -23,7 +25,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Iterable<Book> getAllBooks(){
+    public List<Book> getAllBooks(){
         return bookDao.getAllBooks();
     }
 

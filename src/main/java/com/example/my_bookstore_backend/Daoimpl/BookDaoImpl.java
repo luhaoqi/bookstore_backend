@@ -39,7 +39,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public Iterable<Book> getAllBooks() {
+    public List<Book> getAllBooks() {
         List<Book> list = null;
         System.out.println("Searching All Books in Redis");
         Object p = redisUtil.get("book:all");

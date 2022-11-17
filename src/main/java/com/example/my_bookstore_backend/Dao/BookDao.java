@@ -10,7 +10,7 @@ public interface BookDao {
 
     void delete(Book b);
 
-    Iterable<Book> getAllBooks();
+    List<Book> getAllBooks();
 
     Book getBookById(int id);
 }

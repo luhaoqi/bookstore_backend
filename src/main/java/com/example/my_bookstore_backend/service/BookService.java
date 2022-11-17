@@ -2,13 +2,15 @@ package com.example.my_bookstore_backend.service;
 
 import com.example.my_bookstore_backend.entity.Book;
 
+import java.util.List;
+
 public interface BookService {
 
     void save(Book b);
 
     void delete(Book b);
 
-    Iterable<Book> getAllBooks();
+    List<Book> getAllBooks();
 
     Book getBookById(int id);
 }
