@@ -32,7 +32,8 @@ public class BookController {
     public int addNewBook(@RequestParam String name, @RequestParam String author,
                           @RequestParam int price, @RequestParam String image,
                           @RequestParam String description, @RequestParam String isbn,
-                          @RequestParam int sales, @RequestParam int stock) {
+                          @RequestParam int sales, @RequestParam int stock,
+                          @RequestParam String iconBase64) {
         Book book = new Book();
         book.setAuthor(author);
         book.setName(name);
@@ -43,7 +44,7 @@ public class BookController {
         book.setIsbn(isbn);
         book.setStock(stock);
         book.setFlag(1);
-        bookService.save(book);
+        bookService.save(book, iconBase64);
         return book.getBid();
     }
 
@@ -53,7 +54,7 @@ public class BookController {
                          @RequestParam(required = false) Integer price, @RequestParam(required = false) String image,
                          @RequestParam(required = false) String description, @RequestParam(required = false) String isbn,
                          @RequestParam(required = false) Integer sales, @RequestParam(required = false) Integer stock,
-                         @RequestParam(required = false) Integer flag) {
+                         @RequestParam(required = false) Integer flag, @RequestParam String iconBase64) {
         Book book = bookService.getBookById(bid);
         if (book == null) {
             Book nullBook = new Book();
@@ -69,7 +70,7 @@ public class BookController {
         if (sales != null) book.setSales(sales);
         if (stock != null) book.setStock(stock);
         if (flag != null) book.setFlag(flag);
-        bookService.save(book);
+        bookService.save(book, iconBase64);
         return book;
     }
 
@@ -86,6 +87,20 @@ public class BookController {
     @GetMapping("/all")
     public List<Book> getBooks() {
         return bookService.getAllBooks();
+    }
+
+    @GetMapping("/kind")
+    public List<Book> getBooksByKind(String kind) {
+        return bookRepository.findBooksByKind(kind);
+    }
+
+    @GetMapping("/name")
+    public Book getBooksByName(String name) {
+        Book b = bookRepository.findBookByName(name);
+        if (b != null) return b;
+        b = new Book();
+        b.setName("null");
+        return b;
     }
 
     @PostMapping("/search")

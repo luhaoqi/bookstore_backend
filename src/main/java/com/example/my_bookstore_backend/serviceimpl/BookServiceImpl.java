@@ -15,8 +15,8 @@ public class BookServiceImpl implements BookService {
     private BookDao bookDao;
 
     @Override
-    public void save(Book b) {
-        bookDao.save(b);
+    public void save(Book b, String iconBase64) {
+        bookDao.save(b, iconBase64);
     }
 
     @Override
@@ -25,12 +25,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getAllBooks(){
+    public List<Book> getAllBooks() {
         return bookDao.getAllBooks();
     }
 
     @Override
-    public Book getBookById(int id){
+    public Book getBookById(int id) {
         return bookDao.getBookById(id);
     }
 

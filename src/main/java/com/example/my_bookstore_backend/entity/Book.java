@@ -36,5 +36,10 @@ public class Book {
 
     private String isbn;
     private int flag;
+
+    private String kind;
+
+    @Transient
+    private BookIcon bookIcon;
 }
 
