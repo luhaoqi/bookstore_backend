@@ -12,6 +12,10 @@ import java.util.Optional;
 public class UserDaoImpl implements UserDao {
 
     @Autowired
+    void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     private UserRepository userRepository;
 
     @Override
@@ -40,8 +44,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByName(String username) {
-        User x = userRepository.findByName(username);
-        return x;
+        return userRepository.findByName(username);
     }
 
     @Override
