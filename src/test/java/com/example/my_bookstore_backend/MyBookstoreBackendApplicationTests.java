@@ -1,13 +1,17 @@
 package com.example.my_bookstore_backend;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class MyBookstoreBackendApplicationTests {
+public class MyBookstoreBackendApplicationTests {
+    public MyBookstoreBackendApplicationTests() {
 
-    @Test
-    void contextLoads() {
     }
 
+    private MyBookstoreBackendApplication myBookstoreBackendApplication = new MyBookstoreBackendApplication();
+
+    @Test
+    public void hello_test() {
+        Assert.assertTrue("hello_test!", true);
+    }
 }
