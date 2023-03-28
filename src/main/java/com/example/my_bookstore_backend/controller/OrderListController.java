@@ -13,8 +13,12 @@ import java.util.List;
 @RequestMapping(path = "/order")
 public class OrderListController {
 
-    @Autowired
     private OrderListService orderListService;
+
+    @Autowired
+    public void setOrderListService(OrderListService orderListService) {
+        this.orderListService = orderListService;
+    }
 
     //基本不用 购物车购买直接调用purchase
     @PostMapping(path = "/add")

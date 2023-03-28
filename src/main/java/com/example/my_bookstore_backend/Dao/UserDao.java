@@ -10,6 +10,7 @@ public interface UserDao {
     Iterable<User> getAllUsers();
 
     User getUserById(int uid);
+
     User getUserByName(String username);
 
     int setstate(int uid, int s);

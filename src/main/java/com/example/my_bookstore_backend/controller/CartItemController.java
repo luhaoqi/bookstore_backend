@@ -1,7 +1,6 @@
 package com.example.my_bookstore_backend.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.example.my_bookstore_backend.entity.*;
+import com.example.my_bookstore_backend.entity.CartItem;
 import com.example.my_bookstore_backend.service.CartItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +10,12 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/cartItem")
 public class CartItemController {
-    @Autowired
     private CartItemService cartItemService;
+
+    @Autowired
+    void setCartItemService(CartItemService cartItemService) {
+        this.cartItemService = cartItemService;
+    }
 
     @PostMapping(path = "/add")
     //Only add one by one
@@ -34,8 +37,7 @@ public class CartItemController {
     @PostMapping(path = "/search")
     public CartItem getByOIid(@RequestParam int ciid) {
         CartItem c = cartItemService.getByOIid(ciid);
-        if (c == null)
-        {
+        if (c == null) {
             c = new CartItem();
             c.setCartItemId(0);
             return c;

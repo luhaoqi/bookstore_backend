@@ -16,13 +16,24 @@ import java.util.Optional;
 
 @Repository
 public class OrderItemDaoImpl implements OrderItemDao {
-    @Autowired
     private BookRepository bookRepository;
-    @Autowired
     private OrderItemRepository orderItemRepository;
-    @Autowired
     private OrderListRepository orderListRepository;
 
+    @Autowired
+    public void setBookRepository(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
+
+    @Autowired
+    public void setOrderItemRepository(OrderItemRepository orderItemRepository) {
+        this.orderItemRepository = orderItemRepository;
+    }
+
+    @Autowired
+    public void setOrderListRepository(OrderListRepository orderListRepository) {
+        this.orderListRepository = orderListRepository;
+    }
 
     @Override
     public int addNewOrderItem(int bid, int oid, int num) {

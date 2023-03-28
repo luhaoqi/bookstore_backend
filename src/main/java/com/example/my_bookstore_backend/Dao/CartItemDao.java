@@ -1,7 +1,6 @@
 package com.example.my_bookstore_backend.Dao;
 
 import com.example.my_bookstore_backend.entity.CartItem;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package com.example.my_bookstore_backend.controller;
 
 import com.example.my_bookstore_backend.entity.Book;
-import com.example.my_bookstore_backend.repository.BookRepository;
 import com.example.my_bookstore_backend.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +10,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/book")
 public class BookController {
 
-    @Autowired
     private BookService bookService;
+
     @Autowired
-    private BookRepository bookRepository;
+    public void setBookService(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @PostMapping(path = "/add")
     public int addNewBook(@RequestParam String name, @RequestParam String author,

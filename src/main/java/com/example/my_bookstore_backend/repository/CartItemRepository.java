@@ -1,6 +1,8 @@
 package com.example.my_bookstore_backend.repository;
 
-import com.example.my_bookstore_backend.entity.*;
+import com.example.my_bookstore_backend.entity.Book;
+import com.example.my_bookstore_backend.entity.CartItem;
+import com.example.my_bookstore_backend.entity.User;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,5 +18,5 @@ public interface CartItemRepository extends CrudRepository<CartItem, Integer> {
 
     List<CartItem> findByUser(User user);
 
-    CartItem findByUserAndBook(User user,Book book);
+    CartItem findByUserAndBook(User user, Book book);
 }

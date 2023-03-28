@@ -9,8 +9,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BookDaoImpl implements BookDao {
 
-    @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    public void setBookRepository(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     public void save(Book b) {
         bookRepository.save(b);
@@ -19,7 +23,6 @@ public class BookDaoImpl implements BookDao {
     public void delete(Book b) {
         b.setFlag(0);
         bookRepository.save(b);
-//        bookRepository.delete(b);
     }
 
     @Override
@@ -29,7 +32,6 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public Book getBookById(int id) {
-        Book b = bookRepository.findByBid(id);
-        return b;
+        return bookRepository.findByBid(id);
     }
 }

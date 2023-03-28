@@ -16,14 +16,24 @@ import java.util.Optional;
 
 @Repository
 public class CartItemDaoImpl implements CartItemDao {
-    @Autowired
     private BookRepository bookRepository;
-
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
     private CartItemRepository cartItemRepository;
 
+    @Autowired
+    void setBookRepository(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
+
+    @Autowired
+    void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Autowired
+    public void setCartItemRepository(CartItemRepository cartItemRepository) {
+        this.cartItemRepository = cartItemRepository;
+    }
 
     @Override
     public CartItem addNewCartItem(int uid, int bid) {

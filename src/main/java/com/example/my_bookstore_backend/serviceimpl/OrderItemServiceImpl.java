@@ -10,8 +10,12 @@ import java.util.List;
 
 @Service
 public class OrderItemServiceImpl implements OrderItemService {
-    @Autowired
     private OrderItemDao orderItemDao;
+
+    @Autowired
+    public void setOrderItemDao(OrderItemDao orderItemDao) {
+        this.orderItemDao = orderItemDao;
+    }
 
     @Override
     public int addNewOrderItem(int bid, int oid, int num) {

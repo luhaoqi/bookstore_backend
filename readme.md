@@ -88,7 +88,7 @@ none
 none
 
 **return on success**:`[{'bookId'=1, 'name'='病隙碎笔','author'='史铁生','price'='22.5'},...]`
- 
+
 ### Get Book By Id
 
 **method:** Post

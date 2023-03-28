@@ -1,6 +1,5 @@
 package com.example.my_bookstore_backend.Daoimpl;
 
-import com.example.my_bookstore_backend.DTO.OrderListDTO;
 import com.example.my_bookstore_backend.Dao.OrderListDao;
 import com.example.my_bookstore_backend.entity.*;
 import com.example.my_bookstore_backend.repository.*;
@@ -8,27 +7,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public class OrderListDaoImpl implements OrderListDao {
-    @Autowired
+    CartItemRepository cartItemRepository;
+    OrderItemRepository orderItemRepository;
+    BookRepository bookRepository;
     private UserRepository userRepository;
-    @Autowired
     private OrderListRepository orderListRepository;
 
     @Autowired
-    CartItemRepository cartItemRepository;
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Autowired
-    OrderItemRepository orderItemRepository;
+    public void setOrderListRepository(OrderListRepository orderListRepository) {
+        this.orderListRepository = orderListRepository;
+    }
 
     @Autowired
-    BookRepository bookRepository;
+    public void setCartItemRepository(CartItemRepository cartItemRepository) {
+        this.cartItemRepository = cartItemRepository;
+    }
 
+    @Autowired
+    public void setOrderItemRepository(OrderItemRepository orderItemRepository) {
+        this.orderItemRepository = orderItemRepository;
+    }
+
+    @Autowired
+    public void setBookRepository(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     @Override
     public int addNewOrderList(int uid, int price, String time) {
@@ -61,8 +75,7 @@ public class OrderListDaoImpl implements OrderListDao {
     @Override
     public List<OrderList> getByUid(int uid) {
         Optional<User> user = userRepository.findById(uid);
-        if (user.isEmpty()) return null;
-        return orderListRepository.getAllByUid(user.get());
+        return user.map(value -> orderListRepository.getAllByUid(value)).orElse(null);
     }
 
     @Override

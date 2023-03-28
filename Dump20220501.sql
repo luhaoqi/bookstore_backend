@@ -22,14 +22,15 @@
 DROP TABLE IF EXISTS `book`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `book` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) DEFAULT NULL,
-  `author` varchar(100) DEFAULT NULL,
-  `language` varchar(100) DEFAULT NULL,
-  `published` varchar(100) DEFAULT NULL,
-  `sales` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `book`
+(
+    `id`        int NOT NULL AUTO_INCREMENT,
+    `title`     varchar(100) DEFAULT NULL,
+    `author`    varchar(100) DEFAULT NULL,
+    `language`  varchar(100) DEFAULT NULL,
+    `published` varchar(100) DEFAULT NULL,
+    `sales`     varchar(100) DEFAULT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -37,9 +38,14 @@ CREATE TABLE `book` (
 -- Dumping data for table `book`
 --
 
-LOCK TABLES `book` WRITE;
+LOCK
+TABLES `book` WRITE;
 /*!40000 ALTER TABLE `book` DISABLE KEYS */;
-INSERT INTO `book` VALUES (1,'The Lord of the Rings','J. R. R. Tolkien','English','1954-1955','150 million'),(2,'Le Petit Prince (The Little Prince)','Antoine de Saint-Exupéry','French','1943','140 million'),(3,'Harry Potter and the Philosopher\'s Stone','J. K. Rowling','English','1997','107 million'),(4,'And Then There Were None','Agatha Christie','English','1939','100 million'),(5,'Dream of the Red Chamber','Cao Xueqin曹雪芹','Chinese','1754-1791','100 million'),(6,'The Hobbit','J. R. R. Tolkien','English','1937','100 million'),(7,'She: A History of Adventure','H. Rider Haggard','English','1887','100 million');
+INSERT INTO `book`
+VALUES (1, 'The Lord of the Rings', 'J. R. R. Tolkien', 'English', '1954-1955', '150 million'),
+       (2, 'Le Petit Prince (The Little Prince)', 'Antoine de Saint-Exupéry', 'French', '1943', '140 million'),
+       (3,
+        'Harry Potter and the Philosopher\'s Stone','J. K. Rowling','English','1997','107 million'),(4,'And Then There Were None','Agatha Christie','English','1939','100 million'),(5,'Dream of the Red Chamber','Cao Xueqin曹雪芹','Chinese','1754-1791','100 million'),(6,'The Hobbit','J. R. R. Tolkien','English','1937','100 million'),(7,'She: A History of Adventure','H. Rider Haggard','English','1887','100 million');
 /*!40000 ALTER TABLE `book` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

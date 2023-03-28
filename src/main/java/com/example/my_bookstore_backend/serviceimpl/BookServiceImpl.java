@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookServiceImpl implements BookService {
 
-    @Autowired
     private BookDao bookDao;
+
+    @Autowired
+    public void setBookDao(BookDao bookDao) {
+        this.bookDao = bookDao;
+    }
 
     @Override
     public void save(Book b) {
@@ -23,12 +27,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Iterable<Book> getAllBooks(){
+    public Iterable<Book> getAllBooks() {
         return bookDao.getAllBooks();
     }
 
     @Override
-    public Book getBookById(int id){
+    public Book getBookById(int id) {
         return bookDao.getBookById(id);
     }
 

@@ -1,6 +1,5 @@
 package com.example.my_bookstore_backend.serviceimpl;
 
-import com.example.my_bookstore_backend.DTO.OrderListDTO;
 import com.example.my_bookstore_backend.Dao.OrderListDao;
 import com.example.my_bookstore_backend.entity.OrderList;
 import com.example.my_bookstore_backend.service.OrderListService;
@@ -11,8 +10,12 @@ import java.util.List;
 
 @Service
 public class OrderListServiceImpl implements OrderListService {
-    @Autowired
     private OrderListDao orderListDao;
+
+    @Autowired
+    public void setOrderListDao(OrderListDao orderListDao) {
+        this.orderListDao = orderListDao;
+    }
 
     @Override
     public int addNewOrderList(int uid, int price, String time) {

@@ -14,11 +14,18 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/orderItem")
 public class OrderItemController {
-    @Autowired
     private OrderItemService orderItemService;
+    private OrderListService orderListService;
 
     @Autowired
-    private OrderListService orderListService;
+    public void setOrderItemService(OrderItemService orderItemService) {
+        this.orderItemService = orderItemService;
+    }
+
+    @Autowired
+    public void setOrderListService(OrderListService orderListService) {
+        this.orderListService = orderListService;
+    }
 
     @PostMapping(path = "/add")
     public int addNewOrderItem(@RequestParam int bid, @RequestParam int oid, @RequestParam int num) {
@@ -71,7 +78,7 @@ public class OrderItemController {
                 data.put("bookprice", oi.getBook().getPrice());
                 data.put("price", x.getPrice());
                 data.put("time", x.getTime());
-                data.put("num",oi.getNum());
+                data.put("num", oi.getNum());
                 res.add(data);
             }
         }

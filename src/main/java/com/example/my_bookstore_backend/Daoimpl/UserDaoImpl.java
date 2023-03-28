@@ -11,12 +11,12 @@ import java.util.Optional;
 @Repository
 public class UserDaoImpl implements UserDao {
 
+    private UserRepository userRepository;
+
     @Autowired
     void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
-    private UserRepository userRepository;
 
     @Override
     public void save(User u) {
