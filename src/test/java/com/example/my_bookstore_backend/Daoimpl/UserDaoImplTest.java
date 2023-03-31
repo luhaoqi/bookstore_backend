@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class UserDaoImplTest {
-    UserDaoImpl userDao = new UserDaoImpl();
+    private final UserDaoImpl userDao = new UserDaoImpl();
     @Mock
     private UserRepository userRepository;
 
@@ -38,7 +38,7 @@ public class UserDaoImplTest {
 
     @BeforeEach
     void beforeEach() {
-        userDao.setUserRepository(this.userRepository);
+        userDao.setUserRepository(userRepository);
     }
 
     @Test
