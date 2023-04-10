@@ -3,7 +3,6 @@ package com.example.my_bookstore_backend.Daoimpl;
 import com.example.my_bookstore_backend.entity.Book;
 import com.example.my_bookstore_backend.entity.OrderItem;
 import com.example.my_bookstore_backend.entity.OrderList;
-import com.example.my_bookstore_backend.entity.User;
 import com.example.my_bookstore_backend.repository.BookRepository;
 import com.example.my_bookstore_backend.repository.OrderItemRepository;
 import com.example.my_bookstore_backend.repository.OrderListRepository;
