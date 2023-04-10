@@ -15,6 +15,16 @@ import javax.persistence.*;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "cartItemId")
 public class CartItem {
 
+    public CartItem() {}
+
+    public CartItem(int cartItemId, Book book, User user, Integer num) {
+        this.book = book;
+        this.cartItemId = cartItemId;
+        this.num = num;
+        this.user = user;
+    }
+
+
     @Id
     @Column(name = "cart_item_id")
     @GeneratedValue(strategy = GenerationType.AUTO)

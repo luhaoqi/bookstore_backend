@@ -14,6 +14,14 @@ import javax.persistence.*;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "bid")
 public class Book {
 
+    public int getBid() {
+        return bid;
+    }
+
+    public void setBid(int bid) {
+        this.bid = bid;
+    }
+
     @Id
     @Column(name = "bid")
     @GeneratedValue(strategy = GenerationType.AUTO)
