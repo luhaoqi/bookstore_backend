@@ -14,6 +14,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -147,5 +149,21 @@ class CartItemDaoImplTest {
 
     @Test
     void getAllCartItemsByUid() {
+        // l as null
+        CartItem o = new CartItem();
+        o.setCartItemId(0);
+        List<CartItem> l = new ArrayList<>();
+        l.add(o);
+        List<CartItem> target = new ArrayList<>();
+
+        User user = createUser("hjb", "123456", 1);
+        User _user = createUser("wjr", "123456", 2);
+        when(userRepository.findById(user.getUid())).thenReturn(Optional.of(user));
+        when(userRepository.findById(_user.getUid())).thenReturn(Optional.empty());
+        when(cartItemRepository.findByUser(user)).thenReturn(target);
+        // test 1, null
+        Assertions.assertEquals(cartItemDao.getAllCartItemsByUid(_user.getUid()), l);
+        // test 2
+        Assertions.assertEquals(cartItemDao.getAllCartItemsByUid(user.getUid()), target);
     }
 }
