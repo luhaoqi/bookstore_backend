@@ -90,6 +90,37 @@ class CartItemDaoImplTest {
 
     @Test
     void deleteCartItem() {
+        CartItem nullc = new CartItem();
+        nullc.setCartItemId(0);
+        User user = createUser("hjb", "123456", 1);
+        User _user = createUser("wjr", "123456", 2);
+        Book book = new Book(); book.setBid(1);
+        Book book2 = new Book(); book2.setBid(2);
+        Book _book = new Book(); book2.setBid(3);
+        when(bookRepository.findById(book.getBid())).thenReturn(Optional.of(book));
+        when(bookRepository.findById(book2.getBid())).thenReturn(Optional.of(book2));
+        when(bookRepository.findById(_book.getBid())).thenReturn(Optional.empty());
+        when(userRepository.findById(user.getUid())).thenReturn(Optional.of(user));
+        when(userRepository.findById(_user.getUid())).thenReturn(Optional.empty());
+        CartItem target = new CartItem(1, book, user, 1);
+        CartItem target2 = new CartItem(2, book, user, 2);
+        when(cartItemRepository.findByUserAndBook(user, book))
+                .thenReturn(target);
+        // Assertion1 invalid user
+        Assertions.assertEquals(cartItemDao.deleteCartItem(_user.getUid(), book.getBid()), nullc);
+        // Assertion2 invalid book
+        Assertions.assertEquals(cartItemDao.deleteCartItem(user.getUid(), _book.getBid()), nullc);
+        // test3  -1 workflow
+        when(cartItemRepository.findByUserAndBook(user, book)).thenReturn(target2);
+        cartItemDao.deleteCartItem(user.getUid(), book.getBid());
+        verify(cartItemRepository).save(target2);
+        // test4 delete workflow
+        when(cartItemRepository.findByUserAndBook(user, book)).thenReturn(target);
+        cartItemDao.deleteCartItem(user.getUid(), book.getBid());
+        verify(cartItemRepository).delete(target);
+        // test5 no carItem
+        when(cartItemRepository.findByUserAndBook(user, book2)).thenReturn(null);
+        Assertions.assertEquals(cartItemDao.deleteCartItem(user.getUid(), book2.getBid()), nullc);
     }
 
     @Test
