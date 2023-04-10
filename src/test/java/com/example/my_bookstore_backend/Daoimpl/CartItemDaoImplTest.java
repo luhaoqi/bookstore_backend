@@ -125,10 +125,24 @@ class CartItemDaoImplTest {
 
     @Test
     void getAll() {
+        Iterable<CartItem> _useless = null;
+        when(cartItemRepository.findAll()).thenReturn(_useless);
+        Assertions.assertEquals(cartItemDao.getAll(),  _useless);
     }
 
     @Test
     void getByOIid() {
+        int ok_ciid = 1, fail_ciid = 2;
+        Optional<CartItem> x = Optional.of(new CartItem());
+        CartItem nullc = new CartItem();
+        nullc.setCartItemId(0);
+
+        when(cartItemRepository.findById(ok_ciid)).thenReturn(x);
+        when(cartItemRepository.findById(fail_ciid)).thenReturn(Optional.empty());
+        // test1
+        Assertions.assertEquals(cartItemDao.getByOIid(ok_ciid), x.get());
+        // test2
+        Assertions.assertEquals(cartItemDao.getByOIid(fail_ciid), nullc);
     }
 
     @Test
