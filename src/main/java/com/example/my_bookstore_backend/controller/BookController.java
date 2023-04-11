@@ -61,7 +61,7 @@ public class BookController {
     }
 
     @PostMapping(path = "/delete")
-    public int editBook(@RequestParam int bid) {
+    public int deleteBook(@RequestParam int bid) {
         Book book = bookService.getBookById(bid);
         if (book != null) {
             bookService.delete(book);
