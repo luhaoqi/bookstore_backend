@@ -59,7 +59,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/exist")
-    public Integer checkUser(@RequestParam String username) {
+    public Integer checkUserExist(@RequestParam String username) {
         return userService.checkUser(username);
     }
 
@@ -69,7 +69,7 @@ public class UserController {
     }
 
     @PostMapping(path = "/setstate")
-    public int getByUid(@RequestParam int uid, @RequestParam int s) {
+    public int setState(@RequestParam int uid, @RequestParam int s) {
         return userService.setstate(uid, s);
     }
 
