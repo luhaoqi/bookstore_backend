@@ -12,14 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -59,9 +56,12 @@ class CartItemDaoImplTest {
         // _book is invalid book
         User user = createUser("hjb", "123456", 1);
         User _user = createUser("wjr", "123456", 2);
-        Book book = new Book(); book.setBid(1);
-        Book book2 = new Book(); book2.setBid(2);
-        Book _book = new Book(); book2.setBid(3);
+        Book book = new Book();
+        book.setBid(1);
+        Book book2 = new Book();
+        book2.setBid(2);
+        Book _book = new Book();
+        book2.setBid(3);
         when(bookRepository.findById(book.getBid())).thenReturn(Optional.of(book));
         when(bookRepository.findById(book2.getBid())).thenReturn(Optional.of(book2));
         when(bookRepository.findById(_book.getBid())).thenReturn(Optional.empty());
@@ -96,9 +96,12 @@ class CartItemDaoImplTest {
         nullc.setCartItemId(0);
         User user = createUser("hjb", "123456", 1);
         User _user = createUser("wjr", "123456", 2);
-        Book book = new Book(); book.setBid(1);
-        Book book2 = new Book(); book2.setBid(2);
-        Book _book = new Book(); book2.setBid(3);
+        Book book = new Book();
+        book.setBid(1);
+        Book book2 = new Book();
+        book2.setBid(2);
+        Book _book = new Book();
+        book2.setBid(3);
         when(bookRepository.findById(book.getBid())).thenReturn(Optional.of(book));
         when(bookRepository.findById(book2.getBid())).thenReturn(Optional.of(book2));
         when(bookRepository.findById(_book.getBid())).thenReturn(Optional.empty());
@@ -129,7 +132,7 @@ class CartItemDaoImplTest {
     void getAll() {
         Iterable<CartItem> _useless = null;
         when(cartItemRepository.findAll()).thenReturn(_useless);
-        Assertions.assertEquals(cartItemDao.getAll(),  _useless);
+        Assertions.assertEquals(cartItemDao.getAll(), _useless);
     }
 
     @Test

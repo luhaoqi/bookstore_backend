@@ -17,16 +17,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class BookControllerTest {
-    @Mock
-    private BookService bookService;
-
     private final BookController bookController = new BookController();
-
-    @BeforeEach
-    void setUp() {
-        bookController.setBookService(bookService);
-    }
-
     String name = "123";
     String author = "aaa";
     int price = 111;
@@ -36,6 +27,13 @@ class BookControllerTest {
     int sales = 111;
     int stock = 22;
     int flag = 1;
+    @Mock
+    private BookService bookService;
+
+    @BeforeEach
+    void setUp() {
+        bookController.setBookService(bookService);
+    }
 
     Book createBook(int bid) {
         Book book = new Book();

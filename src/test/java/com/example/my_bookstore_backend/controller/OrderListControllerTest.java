@@ -22,10 +22,10 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class OrderListControllerTest {
-    @Mock
-    private OrderListService orderListService;
     private final OrderListController orderListController = new OrderListController();
     private final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//定义新的日期格式
+    @Mock
+    private OrderListService orderListService;
 
     @BeforeEach
     void setUp() {
@@ -45,11 +45,11 @@ class OrderListControllerTest {
         assertEquals(orderListController.addNewOrderList(-1, price, time), 0);
     }
 
-    OrderList createOrderList(int oid, int uid){
+    OrderList createOrderList(int oid, int uid) {
         OrderList orderList = new OrderList();
         orderList.setOrderListId(oid);
         List<OrderItem> orderItems = new ArrayList<>();
-        for (int i=1;i<=10;i++){
+        for (int i = 1; i <= 10; i++) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrderItemId(i);
             orderItem.setNum(i);

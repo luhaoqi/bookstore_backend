@@ -25,6 +25,8 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class OrderListDaoImplTest {
+    private final OrderListDaoImpl orderListDao = new OrderListDaoImpl();
+    private final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//定义新的日期格式
     @Mock
     CartItemRepository cartItemRepository;
     @Mock
@@ -35,10 +37,6 @@ class OrderListDaoImplTest {
     private UserRepository userRepository;
     @Mock
     private OrderListRepository orderListRepository;
-
-    private final OrderListDaoImpl orderListDao = new OrderListDaoImpl();
-
-    private final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//定义新的日期格式
 
     @BeforeEach
     void setUp() {
@@ -153,7 +151,7 @@ class OrderListDaoImplTest {
         assertEquals(_orderlist, orderList);
 
         //库存不足
-        for (CartItem x:list){
+        for (CartItem x : list) {
             x.setNum(10000);
         }
         when(userRepository.findById(uid)).thenReturn(Optional.of(user));

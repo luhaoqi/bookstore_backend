@@ -7,9 +7,7 @@ import com.example.my_bookstore_backend.entity.OrderList;
 import com.example.my_bookstore_backend.entity.User;
 import com.example.my_bookstore_backend.service.OrderItemService;
 import com.example.my_bookstore_backend.service.OrderListService;
-import com.fasterxml.jackson.databind.util.ArrayIterator;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -24,27 +22,19 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class OrderItemControllerTest {
 
+    private final OrderItemController orderItemController = new OrderItemController();
     @Mock
     private OrderItemService orderItemService;
-
     @Mock
     private OrderListService orderListService;
 
-    private final OrderItemController orderItemController = new OrderItemController();
-
-    @BeforeEach
-    void setUp(){
-        orderItemController.setOrderItemService(orderItemService);
-        orderItemController.setOrderListService(orderListService);
-    }
-
-    static Book createBook(int bid){
+    static Book createBook(int bid) {
         Book book = new Book();
         book.setBid(bid);
         return book;
     }
 
-    static OrderList createOrderList(int oid, User user){
+    static OrderList createOrderList(int oid, User user) {
         OrderList orderList = new OrderList();
         orderList.setOrderListId(oid);
         orderList.setUser(user);
@@ -59,7 +49,7 @@ public class OrderItemControllerTest {
         return user;
     }
 
-    static OrderItem createOrderItem(Book book, OrderList orderList, int num){
+    static OrderItem createOrderItem(Book book, OrderList orderList, int num) {
         OrderItem orderItem = new OrderItem();
         orderItem.setBook(book);
         orderItem.setOrderList(orderList);
@@ -67,18 +57,23 @@ public class OrderItemControllerTest {
         return orderItem;
     }
 
-
-    @Test
-    void addNewOrderItem(){
-        int bid = 1;
-        int oid = 2;
-        int num = 10;
-        when(orderItemService.addNewOrderItem(1,2,10)).thenReturn(5);
-        assertEquals(orderItemController.addNewOrderItem(1,2,10), 5);
+    @BeforeEach
+    void setUp() {
+        orderItemController.setOrderItemService(orderItemService);
+        orderItemController.setOrderListService(orderListService);
     }
 
     @Test
-    void getAllOrderLists(){
+    void addNewOrderItem() {
+        int bid = 1;
+        int oid = 2;
+        int num = 10;
+        when(orderItemService.addNewOrderItem(1, 2, 10)).thenReturn(5);
+        assertEquals(orderItemController.addNewOrderItem(1, 2, 10), 5);
+    }
+
+    @Test
+    void getAllOrderLists() {
 
         // no loop
         ArrayList<OrderItem> empty_oi_list = new ArrayList<>();
@@ -88,7 +83,7 @@ public class OrderItemControllerTest {
 
         // loop once
         Book book1 = createBook(1);
-        User user1 = createUser("tzm", "13w323",2);
+        User user1 = createUser("tzm", "13w323", 2);
         OrderList orderList1 = createOrderList(1, user1);
         int num1 = 20;
         OrderItem orderItem1 = createOrderItem(book1, orderList1, num1);
@@ -112,9 +107,9 @@ public class OrderItemControllerTest {
     }
 
     @Test
-    void getByOIid(){
+    void getByOIid() {
         Book book1 = createBook(5);
-        User user1 = createUser("tzm", "1342523",2);
+        User user1 = createUser("tzm", "1342523", 2);
         OrderList orderList1 = createOrderList(3, user1);
         int num1 = 25;
         OrderItem orderItem1 = createOrderItem(book1, orderList1, num1);
@@ -124,9 +119,9 @@ public class OrderItemControllerTest {
     }
 
     @Test
-    void getByOid(){
+    void getByOid() {
         Book book1 = createBook(5);
-        User user1 = createUser("tzm", "1342523",2);
+        User user1 = createUser("tzm", "1342523", 2);
         OrderList orderList1 = createOrderList(3, user1);
         int num1 = 25;
         OrderItem orderItem1 = createOrderItem(book1, orderList1, num1);
@@ -140,7 +135,7 @@ public class OrderItemControllerTest {
     }
 
     @Test
-    void getByUid(){
+    void getByUid() {
         // no loop
         List<OrderList> empty_o_list = new ArrayList<>();
         List<JSONObject> empty_json_list = new ArrayList<>();
@@ -149,7 +144,7 @@ public class OrderItemControllerTest {
 
         // loop once
         Book book1 = createBook(1);
-        User user1 = createUser("tzm", "13w323",2);
+        User user1 = createUser("tzm", "13w323", 2);
         OrderList orderList1 = createOrderList(1, user1);
         List<OrderList> orderListList = new ArrayList<>();
         orderListList.add(orderList1);

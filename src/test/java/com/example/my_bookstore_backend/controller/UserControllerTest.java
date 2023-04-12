@@ -18,21 +18,19 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
-    @Mock
-    private UserService userService;
-
     private final UserController userController = new UserController();
-
-    @BeforeEach
-    void setUp() {
-        userController.setUserService(userService);
-    }
-
     String name = "wjr";
     String password = "123456";
     String tel = "13712341234";
     String email = "123@qq.com";
     String address = "China";
+    @Mock
+    private UserService userService;
+
+    @BeforeEach
+    void setUp() {
+        userController.setUserService(userService);
+    }
 
     User createUser(int uid) {
         User user = new User();

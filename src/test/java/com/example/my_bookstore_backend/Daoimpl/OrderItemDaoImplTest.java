@@ -30,31 +30,31 @@ class OrderItemDaoImplTest {
     @Mock
     private OrderListRepository orderListRepository;
 
-    @BeforeEach
-    void setUp() {
-        orderItemDao.setBookRepository(bookRepository);
-        orderItemDao.setOrderItemRepository(orderItemRepository);
-        orderItemDao.setOrderListRepository(orderListRepository);
-    }
-
-    static Book createBook(int bid){
+    static Book createBook(int bid) {
         Book book = new Book();
         book.setBid(bid);
         return book;
     }
 
-    static OrderList createOrderList(int oid){
+    static OrderList createOrderList(int oid) {
         OrderList orderList = new OrderList();
         orderList.setOrderListId(oid);
         return orderList;
     }
 
-    static OrderItem createOrderItem(Book book, OrderList orderList, int num){
+    static OrderItem createOrderItem(Book book, OrderList orderList, int num) {
         OrderItem orderItem = new OrderItem();
         orderItem.setBook(book);
         orderItem.setOrderList(orderList);
         orderItem.setNum(num);
         return orderItem;
+    }
+
+    @BeforeEach
+    void setUp() {
+        orderItemDao.setBookRepository(bookRepository);
+        orderItemDao.setOrderItemRepository(orderItemRepository);
+        orderItemDao.setOrderListRepository(orderListRepository);
     }
 
     @Test

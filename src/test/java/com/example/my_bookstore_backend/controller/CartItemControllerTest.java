@@ -14,20 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CartItemControllerTest {
-
-    @Mock
-    private CartItemService cartItemService;
-
-    private final CartItemController cartItemController = new CartItemController();
-
-    @BeforeEach
-    void setUp(){ cartItemController.setCartItemService(cartItemService);}
 
     // Book meta data
     static String book_name = "123";
@@ -39,8 +30,11 @@ public class CartItemControllerTest {
     static int book_sales = 111;
     static int book_stock = 22;
     static int book_flag = 1;
+    private final CartItemController cartItemController = new CartItemController();
+    @Mock
+    private CartItemService cartItemService;
 
-    static Book createBook(int bid){
+    static Book createBook(int bid) {
         Book book = new Book();
         book.setBid(bid);
         book.setName(book_name);
@@ -55,7 +49,7 @@ public class CartItemControllerTest {
         return book;
     }
 
-    static CartItem createCartItem(int cartItemId, Book book, User user, Integer num){
+    static CartItem createCartItem(int cartItemId, Book book, User user, Integer num) {
         return new CartItem(cartItemId, book, user, num);
     }
 
@@ -67,8 +61,13 @@ public class CartItemControllerTest {
         return user;
     }
 
+    @BeforeEach
+    void setUp() {
+        cartItemController.setCartItemService(cartItemService);
+    }
+
     @Test
-    void addNewCartItem(){
+    void addNewCartItem() {
         Book book1 = createBook(1);
         User user1 = createUser("tzm", "112233", 1);
         CartItem cartItem1 = cartItemController.addNewCartItem(user1.getUid(), book1.getBid());
@@ -76,7 +75,7 @@ public class CartItemControllerTest {
     }
 
     @Test
-    void deleteCartItem(){
+    void deleteCartItem() {
         Book book1 = createBook(1);
         User user1 = createUser("tzm", "112233", 1);
         CartItem cartItem1 = createCartItem(11, book1, user1, 200);
@@ -87,7 +86,7 @@ public class CartItemControllerTest {
     }
 
     @Test
-    void getAll(){
+    void getAll() {
         Book book1 = createBook(1);
         User user1 = createUser("tzm", "112233", 1);
         CartItem cartItem1 = createCartItem(11, book1, user1, 200);
@@ -100,7 +99,7 @@ public class CartItemControllerTest {
     }
 
     @Test
-    void getByOIid(){
+    void getByOIid() {
         Book book1 = createBook(1);
         User user1 = createUser("tzm", "112233", 1);
         CartItem cartItem1 = createCartItem(11, book1, user1, 200);
@@ -116,7 +115,7 @@ public class CartItemControllerTest {
     }
 
     @Test
-    void getAllCartItemsByUid(){
+    void getAllCartItemsByUid() {
         Book book1 = createBook(1);
         User user1 = createUser("tzm", "112233", 1);
         User user2 = createUser("hjb", "112233", 2);

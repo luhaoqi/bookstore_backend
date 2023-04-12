@@ -14,6 +14,20 @@ import javax.persistence.*;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "bid")
 public class Book {
 
+    @Id
+    @Column(name = "bid")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int bid;
+    private String name;
+    private String author;
+    private int price;
+    private String image;
+    private int sales;
+    private int stock;
+    private String description;
+    private String isbn;
+    private int flag;
+
     public int getBid() {
         return bid;
     }
@@ -21,23 +35,5 @@ public class Book {
     public void setBid(int bid) {
         this.bid = bid;
     }
-
-    @Id
-    @Column(name = "bid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int bid;
-
-
-    private String name;
-    private String author;
-    private int price;
-    private String image;
-    private int sales;
-    private int stock;
-
-    private String description;
-
-    private String isbn;
-    private int flag;
 }
 

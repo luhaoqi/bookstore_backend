@@ -15,7 +15,22 @@ import javax.persistence.*;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "cartItemId")
 public class CartItem {
 
-    public CartItem() {}
+    @Id
+    @Column(name = "cart_item_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int cartItemId;
+    @ManyToOne
+    @JoinColumn(name = "bid")
+    private Book book;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "uid")
+    private User user;
+    private Integer num;
+
+
+    public CartItem() {
+    }
 
     public CartItem(int cartItemId, Book book, User user, Integer num) {
         this.book = book;
@@ -23,23 +38,5 @@ public class CartItem {
         this.num = num;
         this.user = user;
     }
-
-
-    @Id
-    @Column(name = "cart_item_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int cartItemId;
-
-    @ManyToOne
-    @JoinColumn(name = "bid")
-    private Book book;
-
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "uid")
-    private User user;
-
-    private Integer num;
 
 }

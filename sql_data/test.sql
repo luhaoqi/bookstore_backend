@@ -16,7 +16,7 @@
 
 SET NAMES utf8mb4;
 SET
-    FOREIGN_KEY_CHECKS = 0;
+FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for books
@@ -24,17 +24,17 @@ SET
 DROP TABLE IF EXISTS `books`;
 CREATE TABLE `books`
 (
-    `bid`         int                                                      NOT NULL,
-    `author`      varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci  NOT NULL,
+    `bid`         int                                                     NOT NULL,
+    `author`      varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `description` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-    `image`       varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci  NOT NULL,
-    `isbn`        varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci  NOT NULL,
-    `name`        varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci  NOT NULL,
-    `price`       varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci  NOT NULL,
-    `sales`       int                                                      NOT NULL,
-    `stock`       int                                                      NOT NULL,
-    `flag`        int                                                      NOT NULL,
-    `kind`        varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL,
+    `image`       varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `isbn`        varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `name`        varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `price`       varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `sales`       int                                                     NOT NULL,
+    `stock`       int                                                     NOT NULL,
+    `flag`        int                                                     NOT NULL,
+    `kind`        varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
     PRIMARY KEY (`bid`) USING BTREE
 ) ENGINE = InnoDB
   CHARACTER SET = utf8
@@ -117,9 +117,9 @@ CREATE TABLE `cart_items`
     `num`          int NOT NULL,
     `cart_id`      int NULL DEFAULT NULL,
     PRIMARY KEY (`cart_item_id`) USING BTREE,
-    INDEX `bid` (`bid` ASC) USING BTREE,
-    INDEX `uid` (`uid` ASC) USING BTREE,
-    INDEX `FKpcttvuq4mxppo8sxggjtn5i2c` (`cart_id` ASC) USING BTREE,
+    INDEX          `bid` (`bid` ASC) USING BTREE,
+    INDEX          `uid` (`uid` ASC) USING BTREE,
+    INDEX          `FKpcttvuq4mxppo8sxggjtn5i2c` (`cart_id` ASC) USING BTREE,
     CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `books` (`bid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT `FKpcttvuq4mxppo8sxggjtn5i2c` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`cart_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -197,8 +197,8 @@ CREATE TABLE `order_items`
     `order_list_id` int NOT NULL,
     `price`         int NOT NULL,
     PRIMARY KEY (`order_item_id`) USING BTREE,
-    INDEX `FKin1q0xhd1x9dh98xpdpbw8h5t` (`bid` ASC) USING BTREE,
-    INDEX `FK5xafa2tuafgqaxdo518wm6lfl` (`order_list_id` ASC) USING BTREE,
+    INDEX           `FKin1q0xhd1x9dh98xpdpbw8h5t` (`bid` ASC) USING BTREE,
+    INDEX           `FK5xafa2tuafgqaxdo518wm6lfl` (`order_list_id` ASC) USING BTREE,
     CONSTRAINT `FK5xafa2tuafgqaxdo518wm6lfl` FOREIGN KEY (`order_list_id`) REFERENCES `order_lists` (`order_list_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT `FKin1q0xhd1x9dh98xpdpbw8h5t` FOREIGN KEY (`bid`) REFERENCES `books` (`bid`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB
@@ -346,7 +346,7 @@ CREATE TABLE `order_lists`
     `address`       varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `name`          varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     PRIMARY KEY (`order_list_id`) USING BTREE,
-    INDEX `FKq5a1fkalw9p0uwf3uel1efhg9` (`user_id` ASC) USING BTREE,
+    INDEX           `FKq5a1fkalw9p0uwf3uel1efhg9` (`user_id` ASC) USING BTREE,
     CONSTRAINT `FKq5a1fkalw9p0uwf3uel1efhg9` FOREIGN KEY (`user_id`) REFERENCES `users` (`uid`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB
   CHARACTER SET = utf8
@@ -449,14 +449,14 @@ VALUES (232, 4500, '2022-11-05 10:43:36', 1, '13736111836', '上海交通大学'
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users`
 (
-    `uid`         int                                                     NOT NULL,
+    `uid`         int NOT NULL,
     `address`     varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
     `email`       varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
     `name`        varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
     `password`    varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
     `tel`         varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-    `state`       int                                                     NOT NULL,
-    `login_state` int                                                     NOT NULL,
+    `state`       int NOT NULL,
+    `login_state` int NOT NULL,
     PRIMARY KEY (`uid`) USING BTREE
 ) ENGINE = InnoDB
   CHARACTER SET = utf8
@@ -492,4 +492,4 @@ INSERT INTO `users`
 VALUES (139, '', '1171153987@qq.com', 'test3', '123456', '13754151286', 1, 0);
 
 SET
-    FOREIGN_KEY_CHECKS = 1;
+FOREIGN_KEY_CHECKS = 1;
