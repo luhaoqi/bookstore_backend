@@ -112,7 +112,7 @@ class BookControllerTest {
         Book book_null = new Book();
         book_null.setBid(0);
         when(bookService.getBookById(bid)).thenReturn(book);
-        when(bookService.getBookById(-1)).thenReturn(book_null);
+        when(bookService.getBookById(-1)).thenReturn(null);
 
         assertEquals(bookController.getBookByID(-1), book_null);
         assertEquals(bookController.getBookByID(bid), book);
