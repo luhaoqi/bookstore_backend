@@ -68,13 +68,13 @@ class CartItemDaoImplTest {
         when(userRepository.findById(user.getUid())).thenReturn(Optional.of(user));
         when(userRepository.findById(_user.getUid())).thenReturn(Optional.empty());
         CartItem target = new CartItem(1, book, user, 1);
-        CartItem target2 = new CartItem(2, book, user, 2);
+        CartItem target2 = new CartItem(1, book, user, 2);
         when(cartItemRepository.findByUserAndBook(user, book))
                 .thenReturn(target);
         // test one
-        cartItemDao.addNewCartItem(user.getUid(), book.getBid());
+        // cartItemDao.addNewCartItem(user.getUid(), book.getBid());
+        Assertions.assertEquals(cartItemDao.addNewCartItem(user.getUid(), book.getBid()), target2);
         verify(cartItemRepository).save(target);
-        //Assertions.assertEquals(cartItemDao.addNewCartItem(user.getUid(), book.getBid()), target2);
         // test two
         Assertions.assertNull(cartItemDao.addNewCartItem(_user.getUid(), book.getBid()));
         // test three
