@@ -74,7 +74,7 @@ class CartItemDaoImplTest {
         // test one
         // cartItemDao.addNewCartItem(user.getUid(), book.getBid());
         Assertions.assertEquals(cartItemDao.addNewCartItem(user.getUid(), book.getBid()), target2);
-        verify(cartItemRepository).save(target);
+        verify(cartItemRepository).save(target2);
         // test two
         Assertions.assertNull(cartItemDao.addNewCartItem(_user.getUid(), book.getBid()));
         // test three
