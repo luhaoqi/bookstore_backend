@@ -38,7 +38,7 @@ public class BookDaoImplTest {
         Book book = new Book();
         book.setFlag(1);
         bookDao.delete(book);
-        Assertions.assertEquals(book.getFlag(), 0);
+        Assertions.assertEquals(0, book.getFlag());
         verify(bookRepository).save(book);
     }
 
@@ -46,7 +46,7 @@ public class BookDaoImplTest {
     void getAllBooks() {
         ArrayList<Book> books = new ArrayList<>();
         when(bookRepository.findAll()).thenReturn(books);
-        Assertions.assertEquals(bookDao.getAllBooks(), books);
+        Assertions.assertEquals(books, bookDao.getAllBooks());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class BookDaoImplTest {
         Book book = new Book();
         book.setBid(0);
         when(bookRepository.findByBid(book.getBid())).thenReturn(book);
-        Assertions.assertEquals(bookDao.getBookById(book.getBid()), book);
+        Assertions.assertEquals(book, bookDao.getBookById(book.getBid()));
         when(bookRepository.findByBid(-1)).thenReturn(null);
         Assertions.assertNull(bookDao.getBookById(-1));
 
